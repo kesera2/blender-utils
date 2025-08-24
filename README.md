@@ -16,7 +16,6 @@ Blender用のアドオンで、**Armature（アーマチュア）のボーン操
 
 - Blender 4.0 以降
 - Python 3.11（Blender付属）
-- 開発用: VSCode で補完を使う場合は `fake-bpy-module-4.0` を推奨
 
 ---
 
@@ -32,12 +31,14 @@ Blender用のアドオンで、**Armature（アーマチュア）のボーン操
 ## 使い方
 
 ### 1. Recursive Bone Renamer
-- 3D Viewport → Sidebar → **Armature Tools** タブ
+- 3D Viewport → Sidebar → **kesera2** タブ
 - **Armature** を選択
 - **Target String** に置換したい文字列を入力
 - **Replace With** に置き換え後の文字列を入力
 - **Rename** ボタンを押すと再帰的にボーン名が変更されます
 
 ### 2. Delete Child Bones
+- 3D Viewport → Sidebar → **kesera2** タブ
+- 削除したいボーンのアーマチュアを選択し、編集モードに移行
 - 削除したいボーンを選択
 - **Delete Children** ボタンを押すと、子ボーンを含めて再帰的に削除されます
