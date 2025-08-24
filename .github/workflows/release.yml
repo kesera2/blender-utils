@@ -21,9 +21,8 @@ jobs:
       - name: Prepare release ZIP
         run: |
           mkdir release
-          cd release
-          zip -r armature-tools.zip ../armature-tools
-          cd ..
+          zip -r release/blender-utils-${{ github.ref_name }}.zip armature-tools
+
 
       - name: Generate release notes
         id: notes
