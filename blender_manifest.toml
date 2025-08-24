@@ -11,4 +11,4 @@ website = "https://github.com/kesera2/blender-utils"
 tags = ["Utility", "Rigging", "Modeling", "Workflow"]
 
 blender_version_min = "4.2.0"
-license = "MIT"
+license = ["MIT"]
