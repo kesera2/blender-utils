@@ -1,0 +1,14 @@
+schema_version = "1.0.0"
+
+id = "blender_utils"
+version = "0.0.1-alpha2"
+name = "Blender Utils"
+tagline = "A collection of small utility tools for Blender"
+maintainer = "kesera2"
+type = "add-on"
+
+website = "https://github.com/kesera2/blender-utils"
+tags = ["Utility", "Rigging", "Modeling", "Workflow"]
+
+blender_version_min = "4.2.0"
+license = "MIT"

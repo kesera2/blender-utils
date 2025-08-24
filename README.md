@@ -14,7 +14,7 @@ Blender用のアドオンで、**Armature（アーマチュア）のボーン操
 
 ## 対応環境
 
-- Blender 4.0 以降
+- Blender 4.2 以降
 - Python 3.11（Blender付属）
 
 ---
