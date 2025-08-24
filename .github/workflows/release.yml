@@ -1,47 +1,24 @@
-name: Create Release
+name: Release Addon
 
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"   # v0.1.0 みたいなタグに反応
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Prepare release ZIP
+      - name: Make ZIP
         run: |
-          mkdir release
-          zip -r release/blender-utils-${{ github.ref_name }}.zip armature-tools
+          mkdir -p release
+          zip -r release/armature-tools.zip armature-tools
 
-
-      - name: Generate release notes
-        id: notes
-        run: |
-          # 最新タグ取得
-          LATEST_TAG=$(git describe --tags --abbrev=0)
-          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
-          # CHANGELOG.md とコミットログを結合
-          RELEASE_NOTES=$(cat CHANGELOG.md || echo "")
-          COMMITS=$(git log ${LATEST_TAG}..HEAD --oneline)
-          echo -e "$RELEASE_NOTES\n\nCommits since last tag:\n$COMMITS" > release_notes.txt
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          cat release_notes.txt >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Create GitHub Release
-        uses: ncipollo/release-action@v1
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
         with:
-          tag: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body: ${{ env.RELEASE_NOTES }}
           files: release/armature-tools.zip
