@@ -8,16 +8,16 @@ bl_info = {
     "category": "Armature",
 }
 
-import bpy
+import bpy # type: ignore
 
 class BoneRecursiveRenameProps(bpy.types.PropertyGroup):
     armature: bpy.props.PointerProperty(
         name="Armature",
         type=bpy.types.Object,
         poll=lambda self, obj: obj.type == 'ARMATURE'
-    )
-    target_string: bpy.props.StringProperty(name="Target String")
-    replace_string: bpy.props.StringProperty(name="Replace With", default="")
+    ) # type: ignore
+    target_string: bpy.props.StringProperty(name="Target String") # type: ignore
+    replace_string: bpy.props.StringProperty(name="Replace With", default="") # type: ignore
 
 class OBJECT_OT_recursive_bone_rename(bpy.types.Operator):
     bl_idname = "object.recursive_bone_rename"
