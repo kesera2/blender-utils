@@ -1,0 +1,48 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Prepare release ZIP
+        run: |
+          mkdir release
+          cd release
+          zip -r armature-tools.zip ../armature-tools
+          cd ..
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          # 最新タグ取得
+          LATEST_TAG=$(git describe --tags --abbrev=0)
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+          # CHANGELOG.md とコミットログを結合
+          RELEASE_NOTES=$(cat CHANGELOG.md || echo "")
+          COMMITS=$(git log ${LATEST_TAG}..HEAD --oneline)
+          echo -e "$RELEASE_NOTES\n\nCommits since last tag:\n$COMMITS" > release_notes.txt
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          cat release_notes.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: ${{ env.RELEASE_NOTES }}
+          files: release/armature-tools.zip
